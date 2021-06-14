@@ -6,16 +6,17 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MultiThreading.Task5.Threads.SharedCollection
 {
     class Program
     {
-
-        private static readonly object LockObj = new object();
-        private static List<int> Collection { get; set; } = new List<int>();
-
+        private static List<int> sharedList = new List<int>();
+        private static Random _random = new Random();
+        private static EventWaitHandle _eventWaitHandle1 = new EventWaitHandle(false, EventResetMode.AutoReset);
+        private static EventWaitHandle _eventWaitHandle2 = new EventWaitHandle(false, EventResetMode.AutoReset);
         static void Main(string[] args)
         {
             Console.WriteLine("5. Write a program which creates two threads and a shared collection:");
@@ -23,39 +24,39 @@ namespace MultiThreading.Task5.Threads.SharedCollection
             Console.WriteLine("Use Thread, ThreadPool or Task classes for thread creation and any kind of synchronization constructions.");
             Console.WriteLine();
 
+            Task.Factory.StartNew(AddElement);
+            Task.Factory.StartNew(PrintAllElements);
 
-            Run();
             Console.ReadLine();
         }
 
-        private static void Run()
+        private static void AddElement()
         {
-            for (var i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
-                var element = i;
-                Task.Run(() => Add(element));
+                var element = _random.Next(100);
+
+                sharedList.Add(element);
+
+                Console.WriteLine("Added ===>" + element);
+                _eventWaitHandle1.Set();
+                _eventWaitHandle2.WaitOne();
             }
         }
 
-        private static void Print()
+        private static void PrintAllElements()
         {
-            string toPrint;
-            lock (LockObj)
+            while (true)
             {
-                toPrint = string.Join(";", Collection);
-            }
-            Console.WriteLine(toPrint);
-        }
+                _eventWaitHandle1.WaitOne();
+                foreach (var element in sharedList)
+                {
+                    Console.WriteLine("element: " + element);
+                }
 
-        private static void Add(int element)
-        {
-            lock (LockObj)
-            {
-                Console.WriteLine($"{element} has been added to collection");
-                Collection.Add(element);
+                _eventWaitHandle2.Set();
             }
 
-            Task.Run((Action)Print);
         }
     }
 }
