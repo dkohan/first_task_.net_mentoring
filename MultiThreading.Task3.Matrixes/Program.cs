@@ -31,18 +31,15 @@ namespace MultiThreading.Task3.MatrixMultiplier
             var firstMatrix = new Matrix(sizeOfMatrix, sizeOfMatrix, true);
             var secondMatrix = new Matrix(sizeOfMatrix, sizeOfMatrix, true);
 
-
+            Console.WriteLine("firstMatrix:");
+            firstMatrix.Print();
+            Console.WriteLine("secondMatrix:");
+            secondMatrix.Print();
 
             Stopwatch stopwatch = Stopwatch.StartNew();
             IMatrix resultMatrix = new MatricesMultiplier().Multiply(firstMatrix, secondMatrix);
             stopwatch.Stop();
             Console.WriteLine("Multiply seconds (no parallel): " + stopwatch.ElapsedMilliseconds);
-
-            Console.WriteLine("firstMatrix:");
-            firstMatrix.Print();
-            Console.WriteLine("secondMatrix:");
-            secondMatrix.Print();
-            Console.WriteLine("resultMatrix:");
             resultMatrix.Print();
 
             Stopwatch stopwatch1 = Stopwatch.StartNew();

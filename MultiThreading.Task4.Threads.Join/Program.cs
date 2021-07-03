@@ -28,14 +28,33 @@ namespace MultiThreading.Task4.Threads.Join
             Console.WriteLine("- a) Use Thread class for this task and Join for waiting threads.");
             Console.WriteLine("- b) ThreadPool class for this task and Semaphore for waiting threads.");
 
+            Console.WriteLine("- a) Use Thread class for this task and Join for waiting threads.");
+            var thread = new Thread(() => ThreadRun(10));
+            thread.Start();
+            thread.Join();
 
-            ThreadPool.QueueUserWorkItem(Run, 100);
-            
+            Console.WriteLine("- b) ThreadPool class for this task and Semaphore for waiting threads.");
+            ThreadPool.QueueUserWorkItem(ThreadPoolRun, 100);
+
             Console.ReadLine();
         }
 
+        public static void ThreadRun(int state)
+        {
+            Console.WriteLine($"State: {state}");
+            Console.WriteLine($"Current thread id: {Thread.CurrentThread.ManagedThreadId}");
+            if (Interlocked.Decrement(ref state) == 0)
+            {
+                return;
+            }
 
-        private static void Run(object begin)
+            var thread = new Thread(() => ThreadRun(state));
+            thread.Start();
+            thread.Join();
+        }
+
+
+        private static void ThreadPoolRun(object begin)
         {
             if (_counter++ == 10)
                 return;
@@ -47,7 +66,7 @@ namespace MultiThreading.Task4.Threads.Join
             _sem.WaitOne();
 
             Console.WriteLine(number--);
-            ThreadPool.QueueUserWorkItem(Run, number);
+            ThreadPool.QueueUserWorkItem(ThreadPoolRun, number);
 
             _sem.Release();
         }

@@ -695,11 +695,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dzmitriy_Kakhanouski\\Desktop\\.net mentoring\\Tasks for mentoring\\01.Threads\\MultiThreading.Task2.Chaining\\MultiThreading.Task2.Chaining.csproj",
+      "projectUniqueName": "C:\\Mentoring\\.net mentoring\\Tasks for mentoring\\01.Threads\\MultiThreading.Task2.Chaining\\MultiThreading.Task2.Chaining.csproj",
       "projectName": "MultiThreading.Task2.Chaining",
-      "projectPath": "C:\\Users\\Dzmitriy_Kakhanouski\\Desktop\\.net mentoring\\Tasks for mentoring\\01.Threads\\MultiThreading.Task2.Chaining\\MultiThreading.Task2.Chaining.csproj",
+      "projectPath": "C:\\Mentoring\\.net mentoring\\Tasks for mentoring\\01.Threads\\MultiThreading.Task2.Chaining\\MultiThreading.Task2.Chaining.csproj",
       "packagesPath": "C:\\Users\\Dzmitriy_Kakhanouski\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dzmitriy_Kakhanouski\\Desktop\\.net mentoring\\Tasks for mentoring\\01.Threads\\MultiThreading.Task2.Chaining\\obj\\",
+      "outputPath": "C:\\Mentoring\\.net mentoring\\Tasks for mentoring\\01.Threads\\MultiThreading.Task2.Chaining\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
